@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import styles from './Collection.module.css';
+import { getProxiedImageUrl, collectionsApi } from '../services/api';
+import { Collection as CollectionType } from '../types';
 
 interface Post {
   url: string;
@@ -14,37 +16,33 @@ interface Post {
   lastEmailedAt: string | null;
 }
 
-interface Collection {
-  url: string;
-  name: string;
-  id: string;
+interface CollectionWithItems extends CollectionType {
   items?: Post[];
 }
 
 function Collection() {
   const { name } = useParams<{ name: string }>();
-  const [collection, setCollection] = useState<Collection | null>(null);
+  const [collection, setCollection] = useState<CollectionWithItems | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const getProxiedImageUrl = (originalUrl: string) => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    return `${apiUrl}/api/image-proxy?url=${encodeURIComponent(originalUrl)}`;
-  };
+
 
   useEffect(() => {
     const fetchCollection = async () => {
-      const apiUrl = process.env.REACT_APP_API_URL;
+      if (!name) {
+        setError('Collection name is required');
+        return;
+      }
+
       try {
-        const response = await fetch(`${apiUrl}/api/collections/${name}`);
-        
-        if (!response.ok) {
-          throw new Error(`Failed to fetch collection: ${response.statusText}`);
+        const response = await collectionsApi.getOne(name);
+        if (!response) {
+          setError('Collection not found');
+          return;
         }
-        
-        const data = await response.json();
-        setCollection(data);
+        setCollection(response);
       } catch (err) {
         console.error('Fetch error:', err);
         setError(err instanceof Error ? err.message : 'An error occurred');
