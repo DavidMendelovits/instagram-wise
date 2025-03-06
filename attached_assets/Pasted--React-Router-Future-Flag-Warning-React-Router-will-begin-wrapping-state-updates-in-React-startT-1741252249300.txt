@@ -1,0 +1,31 @@
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+API URL: http://localhost:8000
+Fetch error: 
+TypeError {}
+
+Fetch error: 
+TypeError {}
+
+Failed to fetch
+at window.fetch (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at fetchCollections (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:50669:32)
+at https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:50690:5
+at commitHookEffectListMount (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:32890:30)
+at commitPassiveMountOnFiber (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:34383:17)
+at commitPassiveMountEffects_complete (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:34355:13)
+at commitPassiveMountEffects_begin (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:34345:11)
+at commitPassiveMountEffects (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:34335:7)
+at flushPassiveEffectsImpl (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:36218:7)
+at flushPassiveEffects (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:36171:18)
+Failed to fetch
+at window.fetch (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at fetchCollections (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:50669:32)
+at https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:50690:5
+at commitHookEffectListMount (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:32890:30)
+at invokePassiveEffectMountInDEV (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:34579:17)
+at invokeEffectsInDev (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:36476:15)
+at commitDoubleInvokeEffectsInDEV (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:36459:11)
+at flushPassiveEffectsImpl (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:36232:9)
+at flushPassiveEffects (https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:36171:18)
+at https://76cba956-4267-4af6-90b2-5ac6523e604e-00-1xnp870ybv824.kirk.replit.dev/static/js/bundle.js:35986:13
