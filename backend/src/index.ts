@@ -20,6 +20,7 @@ import { db } from "./db";
 // Create Express app
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8000;
+const HOST = '0.0.0.0'; // Use 0.0.0.0 to make the server accessible externally
 
 // Middleware
 app.use(express.json());
@@ -29,8 +30,8 @@ app.use(morgan("dev")); // Logging
 // CORS configuration based on environment
 const allowedOrigins =
   process.env.NODE_ENV === "production"
-    ? [process.env.PRODUCTION_URL || ""]
-    : ["http://localhost:3000", "http://localhost:3001"];
+    ? [process.env.PRODUCTION_URL || "", `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`]
+    : ["http://localhost:3000", "http://localhost:3001", `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`];
 
 app.use(
   cors({
@@ -231,8 +232,8 @@ if (!validateConfig()) {
 }
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`Server listening on ${HOST}:${PORT}`);
   setupScheduledTasks();
 
   // Run initial scrape if database is empty
