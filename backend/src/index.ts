@@ -26,19 +26,17 @@ app.use(morgan('dev')); // Logging
 // CORS configuration based on environment
 const allowedOrigins = process.env.NODE_ENV === 'production' 
   ? [process.env.PRODUCTION_URL || ''] 
-  : ['http://localhost:3000', 'http://localhost:3001'];
+  : ['http://localhost:3000', 'http://localhost:8000'];
 
 app.use(cors({
   origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
-})); // Enable CORS for all routes
+}));
 
-// Serve static files from the React app in production
-if (process.env.NODE_ENV === 'production') {
-  const frontendBuildPath = path.resolve(__dirname, '../../frontend/build');
-  app.use(express.static(frontendBuildPath));
-}
+// Serve static files
+const frontendBuildPath = path.resolve(__dirname, '../../frontend/build');
+app.use(express.static(frontendBuildPath));
 
 // Image proxy endpoint
 app.get('/api/image-proxy', async (req: Request, res: Response) => {
@@ -171,6 +169,10 @@ app.post('/api/sync', async (_req: Request, res: Response) => {
   }
 });
 
+app.get('/api/health', (_req: Request, res: Response) => {
+  res.json({ success: true, message: 'Server is healthy' });
+});
+
 // Update settings for collections
 app.put('/api/settings/collections', (req: Request, res: Response) => {
   const { collections } = req.body;
@@ -228,9 +230,7 @@ app.listen(PORT, () => {
   }
 });
 
-// Serve React app for any unmatched routes in production
-if (process.env.NODE_ENV === 'production') {
-  app.get('*', (_req: Request, res: Response) => {
-    res.sendFile(path.resolve(__dirname, '../../frontend/build/index.html'));
-  });
-}
+// Catch-all route for React app - this should be the LAST route
+app.get('*', (_req: Request, res: Response) => {
+  res.sendFile(path.join(frontendBuildPath, 'index.html'));
+});
