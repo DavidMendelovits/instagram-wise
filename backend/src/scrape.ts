@@ -86,7 +86,7 @@ export async function scrapeInstagramSavedPosts(): Promise<boolean> {
   db.lastSync = new Date().toISOString();
 
   const browser: Browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
