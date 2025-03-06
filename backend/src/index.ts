@@ -22,12 +22,23 @@ const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev')); // Logging
+
+// CORS configuration based on environment
+const allowedOrigins = process.env.NODE_ENV === 'production' 
+  ? [process.env.PRODUCTION_URL || ''] 
+  : ['http://localhost:3000', 'http://localhost:3001'];
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 })); // Enable CORS for all routes
-app.use(express.static('public')); // Serve static files
+
+// Serve static files from the React app in production
+if (process.env.NODE_ENV === 'production') {
+  const frontendBuildPath = path.resolve(__dirname, '../../frontend/build');
+  app.use(express.static(frontendBuildPath));
+}
 
 // Image proxy endpoint
 app.get('/api/image-proxy', async (req: Request, res: Response) => {
@@ -216,3 +227,10 @@ app.listen(PORT, () => {
     // });
   }
 });
+
+// Serve React app for any unmatched routes in production
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (_req: Request, res: Response) => {
+    res.sendFile(path.resolve(__dirname, '../../frontend/build/index.html'));
+  });
+}
