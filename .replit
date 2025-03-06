@@ -1,6 +1,7 @@
-run = "npm start"
+run = "npm run dev"
 hidden = [".config", "package-lock.json"]
 language = "nodejs"
+modules = ["nodejs-20", "web", "nix"]
 
 [packager]
 language = "nodejs"
@@ -13,8 +14,48 @@ language = "nodejs"
 XDG_CONFIG_HOME = "/home/runner/.config"
 
 [nix]
-channel = "stable-22_11"
+channel = "stable-24_05"
 
 [deployment]
-run = ["sh", "-c", "npm start"]
+run = ["sh", "-c", "npm run dev"]
 deploymentTarget = "cloudrun" 
+
+[workflows]
+runButton = "Start App"
+
+[[workflows.workflow]]
+name = "bootstrap"
+mode = "sequential"
+author = 5378351
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run install-all"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run start"
+
+[[workflows.workflow]]
+name = "Start App"
+author = 5378351
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend && npm run build && npm start"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[[ports]]
+localPort = 3001
+externalPort = 3001
+
+[[ports]]
+localPort = 8000
+externalPort = 8000
