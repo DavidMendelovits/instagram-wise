@@ -21,6 +21,7 @@ run = ["sh", "-c", "npm run dev"]
 deploymentTarget = "cloudrun" 
 
 [workflows]
+runButton = "Start App"
 
 [[workflows.workflow]]
 name = "bootstrap"
@@ -39,9 +40,21 @@ args = "npm run build"
 task = "shell.exec"
 args = "npm run start"
 
+[[workflows.workflow]]
+name = "Start App"
+author = 5378351
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend && npm run build && npm start"
+
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[[ports]]
+localPort = 3001
+externalPort = 3001
 
 [[ports]]
 localPort = 8000
